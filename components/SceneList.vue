@@ -7,12 +7,14 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="">
-        <h2>{{ $t() }}</h2>
-        <ul>
-            <li v-for="objectItem in props.mapobjects">
-                <p>{{ objectItem.name }}</p>
-            </li>
-        </ul>
+    <div class="min-w-[20%]">
+        <div class="p-[20px]">
+            <h2 class="font-bold uppercase">{{ $t("general.gameobjects") }}</h2>
+            <ul class="mt-[20px]">
+                <li v-for="objectItem in props.mapobjects">
+                    <p>{{ objectItem.name }}</p>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>

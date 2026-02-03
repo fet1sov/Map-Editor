@@ -2,5 +2,9 @@
     "menu": {
         "save": "Save",
         "load": "Load"
+    },
+    "general": {
+        "title": "PODPIVAS — Editor",
+        "gameobjects": "List of game objects"
     }
 }

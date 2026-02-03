@@ -2,5 +2,9 @@
     "menu": {
         "save": "Сохранить",
         "load": "Загрузить"
+    },
+    "general": {
+        "title": "PODPIVAS — Редактор",
+        "gameobjects": "Список игровых объектов"
     }
 }

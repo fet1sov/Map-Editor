@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="bg-[blue]">
+  <div class="bg-[green] w-full h-full">
     <canvas id="editorWindow"></canvas>
   </div>
 </template>

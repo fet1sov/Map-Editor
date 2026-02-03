@@ -9,11 +9,12 @@ function onMapImport(mapObjects: Array<GameObject>) {
 </script>
 
 <template>
-    <div class="flex flex-col w-full h-[100%]">
+    <div class="flex flex-col w-full h-full">
         <NavigationMenu @map-import="onMapImport" :items="MenuItemsList"/>
-        <div class="flex flex-row">
+        <div class="w-full flex flex-row h-[65%]">
             <SceneList :mapobjects="gameObjects"/>
             <EditorWindow/>
         </div>
+        <AssetBrowser></AssetBrowser>
     </div>
 </template>
