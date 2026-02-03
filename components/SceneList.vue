@@ -7,7 +7,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="min-w-[20%]">
+    <div class="min-w-[15%]">
         <div class="p-[20px]">
             <h2 class="font-bold uppercase">{{ $t("general.gameobjects") }}</h2>
             <ul class="mt-[20px]">

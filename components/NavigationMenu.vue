@@ -26,12 +26,12 @@ function handleFileSelect(event: Event) {
 }
 
 function saveMapFile() {
-
+    
 }
 </script>
 
 <template>
-    <nav class="w-full">
+    <nav class="w-full bg-lighttheme-primary-light">
         <ul class="flex flex-row">
           <li v-for="menuItem in items" class="mx-[10px]">
             <div v-if="menuItem.action == 'load'">

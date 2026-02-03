@@ -5,6 +5,8 @@
     },
     "general": {
         "title": "PODPIVAS — Editor",
-        "gameobjects": "List of game objects"
+        "gameobjects": "List of game objects",
+        "assetbrowser": "Asset browser",
+        "attribute": "Attribute editor"
     }
 }

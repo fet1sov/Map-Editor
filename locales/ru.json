@@ -5,6 +5,8 @@
     },
     "general": {
         "title": "PODPIVAS — Редактор",
-        "gameobjects": "Список игровых объектов"
+        "gameobjects": "Список игровых объектов",
+        "assetbrowser": "Список ресурсов",
+        "attribute": "Редактор свойств"
     }
 }

@@ -6,6 +6,8 @@ const gameObjects: Array<GameObject> = ref([]);
 function onMapImport(mapObjects: Array<GameObject>) {
     gameObjects.value = mapObjects;
 }
+
+provide("gameObjects", gameObjects);
 </script>
 
 <template>
@@ -13,7 +15,8 @@ function onMapImport(mapObjects: Array<GameObject>) {
         <NavigationMenu @map-import="onMapImport" :items="MenuItemsList"/>
         <div class="w-full flex flex-row h-[65%]">
             <SceneList :mapobjects="gameObjects"/>
-            <EditorWindow/>
+            <EditorWindow :mapobjects="gameObjects"/>
+            <AttributeEditor/>
         </div>
         <AssetBrowser></AssetBrowser>
     </div>
