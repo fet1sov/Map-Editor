@@ -68,6 +68,17 @@ export class Editor {
 
             this.currentObject.x = worldPos[0];
             this.currentObject.y = worldPos[1];
+
+            for (let gameObj of this.gameObjects)
+            {
+                if (gameObj !== this.currentObject && gameObj.containsPoint(worldPos[0], worldPos[1]))
+                {
+                    const color = hexToClearColor("#ffe927");
+                    gameObj.setTint(color.red, color.green, color.blue, color.alpha);
+                } else {
+                    gameObj.setTint(1, 1, 1, 1);
+                }
+            }
         });
 
         window.addEventListener('keydown', (e: KeyboardEvent) => {
@@ -98,6 +109,8 @@ export class Editor {
     }
 
     public setGameObjects(mapObjects: Array<GameObject>): void {
+        this.gameObjects = [];
+
         for (let object of mapObjects)
         {
             const mapObject = new MapObject(object.name, object.x, object.y, ObjectType.TEXTURED);
@@ -115,7 +128,7 @@ export class Editor {
     }
 
     public setCurrentObject(newAsset: AssetInfo): void {
-        this.currentObject = {} as MapObject; 
+        this.clearCurrentObject();
         this.currentObject = new MapObject(newAsset.name, 0, 0, ObjectType.TEXTURED);
         const objectTexture = this.renderer.getTextureManager().getTexture(newAsset.name);
 
@@ -178,7 +191,19 @@ export class Editor {
             this.camera.move(-10, 0);
         }
 
+        if (this.keys.has("escape")) {
+            this.clearCurrentObject();
+        }
+
         this.render();
+    }
+
+    private clearCurrentObject()
+    {
+        const index = this.gameObjects.indexOf(this.currentObject);
+        if (index > -1) {
+            this.gameObjects.splice(index, 1);
+        }
     }
 
     private render(): void {
