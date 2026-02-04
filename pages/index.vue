@@ -25,7 +25,7 @@ function selectAsset(asset: AssetInfos) {
         <NavigationMenu @map-import="onMapImport" :items="MenuItemsList"/>
         <div class="w-full flex flex-row h-[65%]">
             <SceneList :mapobjects="gameObjects"/>
-            <EditorWindow :current-asset="currentAsset" :assets="assetFiles" :mapobjects="gameObjects"/>
+            <EditorWindow :current-asset="currentAsset" :mapobjects="gameObjects"/>
             <AttributeEditor/>
         </div>
         <AssetBrowser @select-asset="selectAsset" :assets="assetFiles"/>

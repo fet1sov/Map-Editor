@@ -1,5 +1,5 @@
 export interface GameObject {
-    id: string,
+    name: string,
     asset: string,
     x: number,
     y: number,

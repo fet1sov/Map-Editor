@@ -22,13 +22,20 @@ export class Editor {
     public selectedAsset: AssetInfo = {} as AssetInfo;
     private currentObject: MapObject = {} as MapObject;
 
-    constructor(windowId: string, mapObjects: Array<GameObject>, assets: Array<AssetInfo>) {
+    private keys: Set<string> = new Set();
+
+    constructor(windowId: string, mapObjects: Array<GameObject>) {
         this.canvas = document.getElementById(windowId) as HTMLCanvasElement;
 
         this.renderer = new WebGL2Renderer(this.canvas);
         this.camera = new Camera2D(this.canvas.width, this.canvas.height);
 
-        this.assets = assets;
+        this.camera.setPosition(0, 0);
+
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        this.camera.updateViewport(this.canvas.width, this.canvas.height);
+        this.renderer.resize(this.canvas.width, this.canvas.height);
 
         window.addEventListener("beforeunload", () => {
             this.destroy();
@@ -37,11 +44,11 @@ export class Editor {
         this.setupEventListeners();
 
         this.loadResources().then(() => {
+            this.start();
         }).catch(error => {
             console.error('[RES-MANAGER] Failed to load resource:', error);
+            this.start();
         });
-
-        this.start();
     }
 
     private setupEventListeners(): void {
@@ -53,38 +60,42 @@ export class Editor {
         });
 
         this.canvas.addEventListener("mousemove", (event: MouseEvent) => {
-            this.currentObject.x = 0;
-            this.currentObject.y = 0;
+            const rect = this.canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+
+            const worldPos = this.camera.screenToWorld(mouseX, mouseY);
+
+            this.currentObject.x = worldPos[0];
+            this.currentObject.y = worldPos[1];
         });
 
-        const keys: Set<string> = new Set();
         window.addEventListener('keydown', (e: KeyboardEvent) => {
-            keys.add(e.key.toLowerCase());
+            e.preventDefault();
+            this.keys.add(e.key.toLowerCase());
         });
         
         window.addEventListener('keyup', (e: KeyboardEvent) => {
-            keys.delete(e.key.toLowerCase());
+            e.preventDefault();
+            this.keys.delete(e.key.toLowerCase());
         });
-
-        if (keys.has('arrowup')){
-            this.camera.move(0, 10);
-        }
-
-        if (keys.has('arrowdown')){
-            this.camera.move(0, -10);
-        }
-
-        if (keys.has('arrowleft')){
-            this.camera.move(-10, 0);
-        }
-
-        if (keys.has('arrowright')){
-            this.camera.move(10, 0);
-        }
     }
 
     public setGameObjects(mapObjects: Array<GameObject>): void {
-        
+        for (let object of mapObjects)
+        {
+            const mapObject = new MapObject(object.name, object.x, object.y, ObjectType.TEXTURED);
+            const objectTexture = this.renderer.getTextureManager().getTexture(object.asset);
+
+            if (objectTexture) {
+                mapObject.width = objectTexture.width;
+                mapObject.height = objectTexture.height;
+
+                mapObject.setTexture(objectTexture, object.asset);
+
+                this.gameObjects.push(mapObject);
+            }
+        }
     }
 
     public setCurrentObject(newAsset: AssetInfo): void {
@@ -108,6 +119,9 @@ export class Editor {
     }
 
     private async loadResources(): Promise<void> {
+        const resources = await fetch("/api/files");
+        this.assets = JSON.parse(await resources.text());
+
         let resourcePromises = [];
 
         if (this.assets)
@@ -117,7 +131,7 @@ export class Editor {
                 resourcePromises.push(this.renderer.loadTexture(asset.name, asset.path));
             }
         }
-        
+
         await Promise.all(resourcePromises.filter(p => p));
     }
 
@@ -132,11 +146,27 @@ export class Editor {
         const deltaTime = (currentTime - this.lastTime) / 1000;
         this.lastTime = currentTime;
         
+        if (this.keys.has("arrowup")) {
+            this.camera.move(0, 10);
+        }
+
+        if (this.keys.has("arrowdown")) {
+            this.camera.move(0, -10);
+        }
+
+        if (this.keys.has("arrowright")) {
+            this.camera.move(10, 0);
+        }
+
+        if (this.keys.has("arrowleft")) {
+            this.camera.move(-10, 0);
+        }
+
         this.render();
     }
 
     private render(): void {
-        const color = hexToClearColor("#23CD2A");
+        const color = hexToClearColor("#4b4b4b");
         this.renderer.clear(color.red, color.green, color.blue, color.alpha);
 
         const projectionMatrix = this.camera.getProjectionMatrix();

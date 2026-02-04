@@ -23,7 +23,7 @@ function onAssetClick(asset: AssetInfos)
 <template>
   <div class="w-full p-[20px] h-[35%]">
       <h2 class="font-bold">{{ t("general.assetbrowser") }}</h2>
-      <ul class="flex flex-wrap">
+      <ul class="w-full flex flex-wrap">
         <li @click="onAssetClick(asset)" 
           :class="(asset.name == selectedAsset.name ? 'bg-selected' : 'bg-lighttheme-primary-light') + ' max-w-[200px] max-h-[500px] m-[20px] p-[15px] rounded-[20px] flex flex-col justify-center items-center'" 
           v-for="asset in assets">

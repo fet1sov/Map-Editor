@@ -4,13 +4,10 @@ export class Camera2D {
     
     private viewportWidth: number;
     private viewportHeight: number;
-    private followSmoothness: number = 0.1;
-    private lastUpdateTime: number = 0;
 
     constructor(viewportWidth: number, viewportHeight: number) {
         this.viewportWidth = viewportWidth;
         this.viewportHeight = viewportHeight;
-        this.lastUpdateTime = performance.now();
     }
 
     public updateViewport(width: number, height: number): void {

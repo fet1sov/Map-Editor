@@ -5,14 +5,13 @@ import type { GameObject } from '~/types/GameObject';
 
 const props = defineProps<{
     currentAsset: AssetInfos,
-    assets: Array<AssetInfos>,
     mapobjects: Array<GameObject>
 }>();
 
 const editorInstance = ref();
 
 onMounted(() => {
-    editorInstance.value = new Editor("editorWindow", props.mapobjects, props.assets);
+    editorInstance.value = new Editor("editorWindow", props.mapobjects);
 });
 
 watchEffect(() => {
