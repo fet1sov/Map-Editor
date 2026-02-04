@@ -1,5 +1,3 @@
-import type { GameObject } from "./GameObject";
-
 export class Camera2D {
     public position: [number, number] = [0, 0];
     public zoom: number = 1.0;

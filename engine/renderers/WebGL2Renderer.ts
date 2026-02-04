@@ -234,7 +234,7 @@ export class WebGL2Renderer {
     }
 
     public renderGameObject(
-        gameObject: GameObject,
+        gameObject: MapObject,
         projectionMatrix: number[],
         viewMatrix: number[]
     ): void {
@@ -248,7 +248,7 @@ export class WebGL2Renderer {
     }
 
     private renderColoredObject(
-        gameObject: GameObject,
+        gameObject: MapObject,
         projectionMatrix: number[],
         viewMatrix: number[]
     ): void {
@@ -297,7 +297,7 @@ export class WebGL2Renderer {
     }
 
     private renderTexturedObject(
-        gameObject: GameObject,
+        gameObject: MapObject,
         projectionMatrix: number[],
         viewMatrix: number[]
     ): void {

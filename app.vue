@@ -4,7 +4,7 @@ const { t } = i18n.global;
 
 useSeoMeta({
   title: t("general.title")
-})
+});
 </script>
 
 <template>

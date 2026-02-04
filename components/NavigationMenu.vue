@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { type MenuItem } from '~/types/MenuItem';
-import { openMapFile, saveMapFile } from "~/utils/MapParser";
 import { i18n } from "~/plugins/i18n";
+import type { GameObject } from '~/types/GameObject';
 
 const { t } = i18n.global;
 
@@ -20,8 +20,8 @@ function handleFileSelect(event: Event) {
     const reader = new FileReader();
     reader.readAsText(filesList[0], 'UTF-8');
     reader.onload = function({ target }) {
-        const mapObjects: Array<GameObject> = JSON.parse(target.result);
-        emit("map-import", mapObjects);
+        const mapObjects: Array<GameObject> = JSON.parse(String(target.result));
+        emit('mapImport', mapObjects);
     }
 }
 

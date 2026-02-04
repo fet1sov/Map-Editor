@@ -5,9 +5,10 @@ module.exports = {
                 'lighttheme': {
                     'primary': {
                         'primary': '#FFFFFF',
-                        'light': '#E2E2E2'
+                        'light': '#E2E2E2',
                     }
-                }
+                },
+                'selected': '#ffd931'
             }
         },
         fontFamily: {}

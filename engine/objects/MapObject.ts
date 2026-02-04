@@ -12,7 +12,7 @@ export interface AnimationProperties {
 }
 
 export interface AttachedObject {
-    gameObject: GameObject,
+    gameObject: MapObject,
     offsetX: number,
     offsetY: number
 }
@@ -64,19 +64,7 @@ export class MapObject {
     }
 
     public updateTextureCoords(): void {
-        if (this.texture && this.frameWidth > 0 && this.frameHeight > 0) {
-            let frameX = this.getCurrentAnimation().frameX ? Number(this.currentAnimation.frameX) : this.frame % (1 / this.frameWidth);
-            let frameY = this.loopedAnimation ? Math.floor(this.frame * this.frameWidth) : this.currentAnimation.frameY;
-
-            const u1 = frameX * this.frameWidth;
-            const v1 = frameY * this.frameHeight;
-            const u2 = u1 + this.frameWidth;
-            const v2 = v1 + this.frameHeight;
-            
-            this.textureCoords = [u1, v1, u2, v2];
-        } else {
-            this.textureCoords = [0, 0, 1, 1];
-        }
+        this.textureCoords = [0, 0, 1, 1];
     }
 
     public setColor(r: number, g: number, b: number, a: number = 1.0): void {
@@ -124,17 +112,5 @@ export class MapObject {
 
     public setTint(r: number, g: number, b: number, a: number = 1.0): void {
         this.tintColor = [r, g, b, a];
-    }
-
-    public getCurrentAnimation(): AnimationProperties {
-        return this.currentAnimation;
-    }
-
-    public setCurrentAnimation(newProperties: AnimationProperties): void {
-        this.currentAnimation = newProperties;
-    }
-
-    public isTextureMirrored(): boolean {
-        return this.mirroredTexture;
     }
 }
