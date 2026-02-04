@@ -79,6 +79,22 @@ export class Editor {
             e.preventDefault();
             this.keys.delete(e.key.toLowerCase());
         });
+
+        this.canvas.addEventListener('click', (e: MouseEvent) => {
+            e.preventDefault();
+            
+            const mapObject = new MapObject(this.currentObject.id, this.currentObject.x, this.currentObject.y, ObjectType.TEXTURED);
+            const objectTexture = this.renderer.getTextureManager().getTexture(this.currentObject.textureName);
+
+            if (objectTexture) {
+                mapObject.width = objectTexture.width;
+                mapObject.height = objectTexture.height;
+
+                mapObject.setTexture(objectTexture, this.currentObject.textureName);
+
+                this.gameObjects.push(mapObject);
+            }
+        });
     }
 
     public setGameObjects(mapObjects: Array<GameObject>): void {
