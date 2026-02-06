@@ -21,11 +21,11 @@ function onAssetClick(asset: AssetInfos)
 </script>
 
 <template>
-  <div class="w-full p-[20px] h-[35%]">
+  <div class="w-full border-primary-primary-light border-t-2 p-[20px] h-[35%]">
       <h2 class="font-bold">{{ t("general.assetbrowser") }}</h2>
       <ul class="w-full flex flex-row flex-wrap">
         <li @click="onAssetClick(asset)" 
-          :class="'max-w-[200px] max-h-[500px] m-[20px] p-[15px] rounded-[20px] flex flex-col justify-center items-center ' + (selectedAsset.name == asset.name ? 'bg-selected' : 'bg-lighttheme-primary-light')"
+          :class="'max-w-[200px] max-h-[500px] m-[20px] p-[15px] rounded-[20px] flex flex-col justify-center items-center ' + (selectedAsset.name == asset.name ? 'bg-selected' : 'bg-primary-light')"
           v-for="asset in assets">
           <img class="w-[128px] h-[128px]" :src="asset.path">
           <p class="text-center">{{ asset.name }}</p>

@@ -28,7 +28,7 @@ export class Editor {
 
     private assets: Array<AssetInfo> = [];
     public selectedAsset: AssetInfo = {} as AssetInfo;
-    private currentObject: MapObject = {} as MapObject;
+    private currentObject: MapObject | undefined = {} as MapObject;
 
     private keys: Set<string> = new Set();
 
@@ -93,7 +93,10 @@ export class Editor {
                         gameObj.setTint(1, 1, 1, 1);
                     }
                 }
-            } else if (this.editMode == EditModes.ADD) {
+            }
+
+            if (this.currentObject)
+            {
                 this.currentObject.x = worldPos[0];
                 this.currentObject.y = worldPos[1];
             }
@@ -120,16 +123,19 @@ export class Editor {
 
             if (this.editMode == EditModes.ADD)
             {
-                const mapObject = new MapObject(this.currentObject.id, this.currentObject.x, this.currentObject.y, ObjectType.TEXTURED);
-                const objectTexture = this.renderer.getTextureManager().getTexture(this.currentObject.textureName);
+                if (this.currentObject)
+                {
+                    const mapObject = new MapObject(this.currentObject.id, this.currentObject.x, this.currentObject.y, ObjectType.TEXTURED);
+                    const objectTexture = this.renderer.getTextureManager().getTexture(this.currentObject.textureName);
 
-                if (objectTexture) {
-                    mapObject.width = objectTexture.width;
-                    mapObject.height = objectTexture.height;
+                    if (objectTexture) {
+                        mapObject.width = objectTexture.width;
+                        mapObject.height = objectTexture.height;
 
-                    mapObject.setTexture(objectTexture, this.currentObject.textureName);
+                        mapObject.setTexture(objectTexture, this.currentObject.textureName);
 
-                    this.gameObjects.push(mapObject);
+                        this.gameObjects.push(mapObject);
+                    }
                 }
             } else if (this.editMode == EditModes.SELECT) {
                 for (let gameObj of this.gameObjects)
@@ -144,6 +150,11 @@ export class Editor {
                     }
                 }
             }
+        });
+
+        this.canvas.addEventListener("wheel", (event: WheelEvent) => {
+            this.camera.zoom += event.deltaY * -0.001;
+            this.camera.zoom = Math.min(Math.max(0.1, this.camera.zoom), 2);
         });
     }
 
@@ -169,11 +180,14 @@ export class Editor {
     public setEditMode(newMode: EditModes) {
         this.editMode = newMode;
 
-        if (newMode === EditModes.SELECT)
+        if (this.currentObject)
         {
-            this.currentObject.visible = false;
-        } else {
-            this.currentObject.visible = true;
+            if (newMode === EditModes.SELECT)
+            {
+                this.currentObject.visible = false;
+            } else {
+                this.currentObject.visible = true;
+            }
         }
     }
 
@@ -224,6 +238,9 @@ export class Editor {
         const currentTime = performance.now();
         const deltaTime = (currentTime - this.lastTime) / 1000;
         this.lastTime = currentTime;
+
+        GLOBAL_EDITOR_INFO.camera.x = this.camera.position[0];
+        GLOBAL_EDITOR_INFO.camera.y = this.camera.position[1];
         
         if (this.keys.has("arrowup")) {
             this.camera.move(0, 10);

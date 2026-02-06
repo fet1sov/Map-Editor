@@ -12,17 +12,17 @@ const { t } = i18n.global;
             <div v-if="GLOBAL_EDITOR_INFO.selectedObject">
                 <p>{{ GLOBAL_EDITOR_INFO.selectedObject.id }}</p>
                 <ul class="w-full justify-between flex flex-row">
-                    <li>{{  }}</li>
+                    <li>{{ t("attributes.position") }}</li>
 
-                    <li class="text-[#A35A65]">X {{ GLOBAL_EDITOR_INFO.selectedObject.x }}</li>
-                    <li class="text-[#5D8058]">Y {{ GLOBAL_EDITOR_INFO.selectedObject.y }}</li>
+                    <li class="text-[#A35A65]">X {{ Math.floor(GLOBAL_EDITOR_INFO.selectedObject.x) }}</li>
+                    <li class="text-[#5D8058]">Y {{ Math.floor(GLOBAL_EDITOR_INFO.selectedObject.y) }}</li>
                 </ul>
             </div>
 
             <div v-else>
                 <p>{{ t("general.camera") }}</p>
                 <ul class="w-full justify-between flex flex-row">
-                    <li>Position</li>
+                    <li>{{ t("attributes.position") }}</li>
 
                     <li class="text-[#A35A65]">X {{ GLOBAL_EDITOR_INFO.camera.x }}</li>
                     <li class="text-[#5D8058]">Y {{ GLOBAL_EDITOR_INFO.camera.y }}</li>

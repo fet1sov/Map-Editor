@@ -4,12 +4,13 @@ module.exports = {
             colors: {
                 'primary': {
                     'primary': '#131313',
+                    'primary-light': '#222222',
                     'light': '#252525',
                 },
                 'secondary': {
                     'primary': '#FFFFFF'
                 },
-                'selected': '#ffd931'
+                'selected': '#13A4F3'
             }
         },
         fontFamily: {}
