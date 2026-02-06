@@ -1,12 +1,20 @@
 {
     "menu": {
         "save": "Сохранить",
-        "load": "Загрузить"
+        "load": "Загрузить",
+        "editmodes": {
+            "add": "Добавить",
+            "select": "Выбрать"
+        }
+    },
+    "attributes": {
+        "position": "Позиция"
     },
     "general": {
         "title": "PODPIVAS — Редактор",
         "gameobjects": "Список игровых объектов",
         "assetbrowser": "Список ресурсов",
-        "attribute": "Редактор свойств"
+        "attribute": "Редактор свойств",
+        "camera": "Камера"
     }
 }

@@ -8,7 +8,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="w-full h-[100vh]">
+  <div class="w-full h-[100vh] bg-primary-primary text-secondary-primary">
     <NuxtPage/>
   </div>
 </template>

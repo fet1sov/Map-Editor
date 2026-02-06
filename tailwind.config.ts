@@ -2,11 +2,12 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                'lighttheme': {
-                    'primary': {
-                        'primary': '#FFFFFF',
-                        'light': '#E2E2E2',
-                    }
+                'primary': {
+                    'primary': '#131313',
+                    'light': '#252525',
+                },
+                'secondary': {
+                    'primary': '#FFFFFF'
                 },
                 'selected': '#ffd931'
             }

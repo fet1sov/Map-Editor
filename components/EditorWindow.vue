@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { Editor, type AssetInfo } from '~/engine/Editor';
+import { EditModes, Editor, type AssetInfo } from '~/engine/Editor';
 import type { AssetInfos } from '~/types/AssetInfos';
 import type { GameObject } from '~/types/GameObject';
 
 const props = defineProps<{
+    editMode: EditModes,
     currentAsset: AssetInfos,
     mapobjects: Array<GameObject>
 }>();
@@ -18,6 +19,7 @@ watchEffect(() => {
     if (editorInstance.value)
     {
         editorInstance.value.setGameObjects(props.mapobjects);
+        editorInstance.value.setEditMode(props.editMode);
         if (props.currentAsset.name)
         {
             editorInstance.value.setCurrentObject(props.currentAsset);   
