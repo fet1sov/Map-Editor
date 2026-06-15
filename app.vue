@@ -1057,10 +1057,12 @@ function render() {
         'useTexture'
       )
 
+    const WORLD_SCALE = 0.01
+
     gl.uniform2f(
       offsetLocation,
-      (object.position.x + camera.x),
-      (object.position.y + camera.y)
+      (object.position.x + camera.x) * WORLD_SCALE * camera.zoom,
+      (object.position.y + camera.y) * WORLD_SCALE * camera.zoom
     )
 
     const canvasAspect =
